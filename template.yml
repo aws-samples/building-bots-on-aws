@@ -1,0 +1,115 @@
+# This is the SAM template that represents the architecture of your serverless application
+# https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-template-basics.html
+
+# The AWSTemplateFormatVersion identifies the capabilities of the template
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/format-version-structure.html
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  Serverless Slack bot that echoes back user's input in Slack
+
+# Transform section specifies one or more macros that AWS CloudFormation uses to process your template
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-section-structure.html
+Transform: AWS::Serverless-2016-10-31
+
+# Shared configuration for all resources, more in
+# https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    # The PermissionsBoundary allows users to safely develop with their function's permissions constrained
+    # to their current application. All the functions and roles in this application have to include it and
+    # it has to be manually updated when you add resources to your application.
+    # More information in https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html
+    PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/${AppId}-${AWS::Region}-PermissionsBoundary'
+
+Parameters:
+  AppId:
+    Type: String
+
+# Resources declares the AWS resources that you want to include in the stack
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
+Resources:
+# Lambda function that processes incoming events from Slack and echoes them back
+  SlackLambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./
+      Handler: src/handlers/slack-bot.handler
+      Runtime: nodejs10.x
+      MemorySize: 128
+      Timeout: 60
+      Description: A Lambda function that echoes back messages back to Slack.
+      Role: !GetAtt LambdaRole.Arn
+      Environment:
+        Variables:
+          SECRET: !Ref Secret
+      Events:
+        SlackEventsEndpoint:
+          Type: Api
+          Properties:
+            Path: /slackevents
+            Method: post
+ 
+  # SNS topic for monitoring notifications for the application
+  OpsNotificationsTopic:
+    Type: 'AWS::SNS::Topic'
+
+  # Secret Manager secret to store Slack Bot Token used by the Lambda to post messages
+  Secret:
+    Type: "AWS::SecretsManager::Secret"
+    Properties:
+      Description: Contains all secrets used by the app
+      Name: !Join ["-",[!Ref "AWS::StackName", "Secret"]]
+      SecretString: '{"Bot_Token": "Placeholder"}'
+
+  # Alarm for the Lambda function triggered when there's an invocation error within a 5 minute interval
+  LambdaFunctionAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      ActionsEnabled: true
+      AlarmActions:
+      - !Ref OpsNotificationsTopic
+      OKActions:
+      - !Ref OpsNotificationsTopic
+      AlarmName: !Join ["-",[!Ref "AWS::StackName",  "SlackLambdaFunction-Errors"]]
+      AlarmDescription: "Alarm if Slack Lambda fails"
+      Namespace: "AWS/Lambda"
+      MetricName: "Errors"
+      Dimensions:
+      - 
+        Name: "FunctionName"
+        Value: !Ref SlackLambdaFunction
+      Statistic: "Sum"
+      ComparisonOperator: "GreaterThanThreshold"
+      Threshold: 0
+      EvaluationPeriods: 1
+      Period: 300
+      TreatMissingData: "notBreaching"
+
+  # IAM role that enables the Lambda function to write logs and access the secret
+  LambdaRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        -
+          Effect: "Allow"
+          Principal:
+            Service:
+            - "lambda.amazonaws.com"
+          Action:
+          - "sts:AssumeRole"
+      ManagedPolicyArns:
+      - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+      - 
+        PolicyName: "SlackLambdaPolicy"
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+          -
+            Effect: "Allow"
+            Action:
+            - "secretsmanager:GetSecretValue"
+            Resource:
+            - !Ref Secret
