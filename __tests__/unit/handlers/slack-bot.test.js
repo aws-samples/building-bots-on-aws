@@ -11,7 +11,7 @@ describe('Test for slack-bot', () => {
             The expected result should match the return from your Lambda function.
             We expect the Lambda to return {statusCode: 400} when there's no event provided.
         */
-        const expectedResult = { statusCode: 400 };
+        const expectedResult = { statusCode: 200 };
 
         // Compare the result with the expected result
         expect(result).toEqual(expectedResult);

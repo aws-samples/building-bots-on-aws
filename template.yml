@@ -32,8 +32,8 @@ Resources:
   SlackLambdaFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./
-      Handler: src/handlers/slack-bot.handler
+      CodeUri: ./src/handlers/slack-bot.js
+      Handler: slack-bot.handler
       Runtime: nodejs10.x
       MemorySize: 128
       Timeout: 60
@@ -59,7 +59,7 @@ Resources:
     Properties:
       Description: Contains all secrets used by the app
       Name: !Join ["-",[!Ref "AWS::StackName", "Secret"]]
-      SecretString: '{"Bot_Token": "Placeholder"}'
+      SecretString: '{"Bot_Token": "Placeholder", "Signing_Secret": "Placeholder"}'
 
   # Alarm for the Lambda function triggered when there's an invocation error within a 5 minute interval
   LambdaFunctionAlarm:

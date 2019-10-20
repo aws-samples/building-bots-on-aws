@@ -56,7 +56,8 @@ Open the CloudFormationRole IAM role in IAM console and add SNSFullAccess, IAMFu
 #### Step-by-step directions
 
 1. In the Application page, choose **CloudFormationRole** under the **Infrastructure** section.
-1. **Identity and Access Management** console will open in a new tab. Choose **Attach policies**.
+1. **Identity and Access Management** console will open in a new tab.
+1. Choose **Attach policies**.
 1. Search for **SNSFullAccess** and select it (but do not attach it yet). Repeat for **IAMFullAccess** and **CloudWatchFullAccess**.
     
     ![SNSFullAccess](images/permissions-iam-snsfullaccess.png)
@@ -104,6 +105,7 @@ Create an IAM user with CodeCommitFullAccess permissions, generate Git credentia
 1. Choose **Download credentials** or save username and password to a safe location on your computer.
 
     ![Download CodeCommit credentials](images/permissions-codecommit-creds-generated.png)
+1. You can close the **IAM** tab now.
 
 ---
 
@@ -120,8 +122,9 @@ Clone the AWS CodeCommit repository, add a remote branch with the slack bot code
 #### Step-by-step directions
 
 1. Go back to the tab with the application you created in step 1.
-1. Choose **ProjectPipeline**.
-1. **CodePipeline** console will open in a new tab. Choose **AWS CodeCommit** under the **Source** stage.
+1. Under the **Infrastructure** section, choose **ProjectPipeline**.
+1. **CodePipeline** console will open in a new tab.
+1. Choose **AWS CodeCommit** under the **Source** stage.
 
     ![Pipeline](images/code-pipeline.png)
 
@@ -158,16 +161,58 @@ Clone the AWS CodeCommit repository, add a remote branch with the slack bot code
 
 #### Background
 
-You will create an application in Slack and make it work with your Serverless Application on AWS. Amazon API Gateway is a managed API service that you will use to subscribe to events from Slack. AWS Secrets Manager is a service to securely store secrets.
+You will create an application in Slack and make it work with your Serverless Application on AWS. Amazon API Gateway is a managed API service that you will use to subscribe to events from Slack. AWS Secrets Manager is a service to securely store secrets. The app will use two secrets from Slack: 1) the signing secret that enables the app to verify authenticity of events received from Slack and 2) the Bot Token that enables the app to post messages to Slack.
 
 #### High-level instructions
 
-Copy the API Gateway Endpoint. Create a Slack application and set up the necessary permissions, bot user, and events. Use the API Gateway Endpoint to subscribe to events - once you paste it, it should be automatically verified. Install the Slack app to your Slack workspace, copy the Bot Token, and store it in AWS Secrets Manager.
+Create a Slack application and set up the necessary permissions and bot user. Copy the signing secret to AWS Secrets Manager. Install the app to your workspace and copy the bot token to AWS Secrets Manager. Copy the API Gateway endpoint from Lambda and use it to subscribe to Slack events - once you paste it, it should be automatically verified. Choose the events you want to subscribe to and re-install the Slack app to your Slack workspace.
 
 #### Step-by-step directions
 
-1. Go to the application page in the Lambda console and refresh it to reflect the deployment from the previous step.
-1. Choose **SlackLambdaFunction**.
+1. Go to [api.slack.com](https://api.slack.com) and choose **Your apps** in the top right corner.
+1. Choose **Create New App**.
+1. Give your app a name and choose the development workspace that will own the app. Choose **Create App**.
+    
+    ![Create app modal](images/slack-create-app-dialog.png)
+
+1. In the **Basic Information** screen, choose **Permissions**.
+1. Scroll down to **Scopes**, choose **chat:write:bot** scope, and choose **Save Changes**.
+    
+    ![Scopes](images/slack-scopes.png)
+
+1. In the left menu, choose **Bot Users** and choose **Add a Bot User** in the screen that opens.
+1. Give your bot a **Display name**, a **Default username**, and choose **Always Show My Bot as Online**. Choose **Add Bot User**.
+1. In the left menu, choose **Basic Information** and scroll to the **App Credential** section.
+1. In the **Singing Secret** textbox, choose **Show** and copy the secret value.
+
+   ![Signing secret image](images/slack-signing-secret.png)
+
+1. Go back to AWS Console, choose **Services** in the navigation, and choose **Secrets Manager** in the list of services.
+1. Find the secret named as **APP_NAME-Secret** and choose it.
+
+    ![Secrets manager](images/secrets-manager-console.png)
+
+1. Scroll down to the **Secret value** section and choose **Retrieve secret value**.
+1. Choose **Edit**.
+1. Paste the **Signing secret** you copied in Slack to the textbox next to **Signing_Secret** key. Don't save it yet and keep the tab open.
+
+    ![Edit secret](images/secrets-manager-edit-secret-value.png)
+
+1. Go back to the Slack app configuration page.
+1. In the left menu, choose **Install App** and choose **Install App to Workspace**.
+1. Choose **Allow** in the following screen.
+    
+    ![OAuth](images/slack-oauth.png)
+
+1. Copy the **Bot User OAuth Access Token**.
+
+    ![Bot access token](images/slack-bot-token.png)
+
+1. Go back to the **Secrets Manager** tab.
+1. Paste the token you just copied to the textbox next to **Bot_Token** key. Choose **Save**.
+1. Choose **Services** in the navigation and and choose **Lambda**.
+1. Choose **Applications** in the left menu and click on your application name in the list.
+1. Under the **Resources** section, choose **SlackLambdaFunction**.
 1. **Lambda** console will open. Choose **API Gateway** under the **Designer** section.
     
     ![Lambda API Gateway](images/lambda-designer.png)
@@ -176,19 +221,7 @@ Copy the API Gateway Endpoint. Create a Slack application and set up the necessa
 
     ![Lambda API Gateway endpoint](images/lambda-apigateway-endpoint.png)
 
-1. Go to [api.slack.com](https://api.slack.com) and choose **Your apps** in the top right corner.
-1. Choose **Create New App**.
-1. Give your app a name and choose the development workspace that will own the app. Choose **Create App**.
-
-    ![Create app modal](images/slack-create-app-dialog.png)
-
-1. In the **Basic Information** screen, choose **Permissions**.
-1. Scroll down to **Scopes**, choose **chat:write:bot** scope, and choose **Save Changes**.
-
-    ![Scopes](images/slack-scopes.png)
-
-1. In the left menu, choose **Bot Users** and choose **Add a Bot User** in the screen that opens.
-1. Give your bot a **Display name**, a **Default username**, and choose **Always Show My Bot as Online**. Choose **Add Bot User**.
+1. Go back to the Slack app configuration page.
 1. In the left menu, choose **Event Subscriptions** and turn **Enable Events** on.
 1. Paste the API Gateway endpoint you copied in the Lambda console in step 4 to the **Request URL** textbox and press Enter. You should see a **Verified** label.
 
@@ -199,25 +232,11 @@ Copy the API Gateway Endpoint. Create a Slack application and set up the necessa
     ![Bot events](images/slack-bot-events.png)
 
 1. Choose **Save Changes**.    
-1. In the left menu, choose **Install App** and choose **Install App to Workspace**.
-1. Choose **Allow** in the following screen.
-    
-    ![OAuth](images/slack-oauth.png)
+1. A warning message will appear at the top, requesting the app to be re-installed. Choose **reinstall your app**.
 
-1. Copy the **Bot User OAuth Access Token**.
+    ![Reinstall app](images/slack-reinstall.png)
 
-    ![Bot access token](images/slack-bot-token.png)
-
-1. Go to AWS Console, choose **Services** in the navigation, and choose **Secrets Manager** in the list of services.
-1. Find the secret named as **APP_NAME-Secret** and choose it.
-
-    ![Secrets manager](images/secrets-manager-console.png)
-
-1. Scroll down to the **Secret value** section and choose **Retrieve secret value**.
-1. Choose **Edit**.
-1. Paste the token you copied in Slack to the textbox with the **Placeholder** value and choose **Save**.
-
-    ![Edit secret](images/secrets-manager-edit-secret-value.png)
+1. Choose **Allow** in the app installation screen that opens.
 
 ---
 
@@ -281,7 +300,9 @@ In the Lambda console, create a test event that will guarantee the function to f
 
 #### Step-by-step directions
 
-1. Go back to the application page in the **Lambda** console and choose **SlackLambdaFunction**.
+1. Choose **Services** in the navigation and and choose **Lambda**.
+1. Choose **Applications** in the left menu and click on your application name in the list.
+1. Under the **Resources** section, choose **SlackLambdaFunction**.
 1. Choose **Test** in the top right corner.
 1. In the pop-up form, give event an **Event name**, paste the following snippet into the code editor, and choose **Create**.
 
@@ -298,7 +319,7 @@ In the Lambda console, create a test event that will guarantee the function to f
 
     ![Failed Lambda](images/lambda-failed.png)
 
-1. Within 5 minutes, you will receive a CloudWatch Alarm notification in the Slack channel where you configured AWS Chatbot.
+1. Within a couple of minutes, you will receive a CloudWatch Alarm notification in the Slack channel where you configured AWS Chatbot.
 
     ![CloudWatch Alarm](images/slack-cloudwatch-alarm.png)
 
@@ -336,7 +357,7 @@ To clean up the AWS account after this workshop, you will need to remove all res
 1. After completing step 3, refresh the **Applications** page to confirm if the application has been deleted.
 
 #### Remove CodeCommit credentials
-1. Go to **IAM** console.
+1. Choose **Services** in the navigation and and choose **IAM**.
 1. Choose **Users** in the left menu.
 1. Find the user you created in the AWS CodeCommit credentials step.
 1. Select the checkbox next to the user name and choose **Delete user**.
@@ -344,7 +365,7 @@ To clean up the AWS account after this workshop, you will need to remove all res
 
 #### Remove AWS Chatbot configuration and role
 
-1. Go to **AWS Chatbot** console
+1. Choose **Services** in the navigation and and choose **AWS Chatbot**.
 1. Choose your Slack workspace in the **Configured clients** list.
 1. Click the name of the Slack channel you configured for notifications. A **Slack channel details** page will open.
 1. Under **IAM role**, click the role name.
