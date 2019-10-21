@@ -9,10 +9,10 @@ Remove the serverless application and the CI/CD pipeline created for managing it
 
 **:white_check_mark: Step-by-step directions**
 
-1. In the [Lambda Console][lambda-console] Go to the **Applications** page.
+1. In the [Lambda Console][lambda-console] go to the **Applications** page.
 1. Select the radio button next to your application.
 1. Choose **Actions** and then **Delete**.
-1. A pop-up with links will appear. **Note** that you must do one extra operation between steps 2 and 3 to successfully complete the deletion! Continue to step 5 below for detailed instructions.
+1. A pop-up with links will appear. **Note** that you must do one extra operation between steps 2 and 3 to successfully complete the deletion! Continue to step 5 below for detailed instructions. Failure to clean up resources could result in charges to your AWS account.
 
     ![Delete application](../images/application-delete.png)
 
@@ -23,7 +23,7 @@ Remove the serverless application and the CI/CD pipeline created for managing it
 1. Choose **CloudFormationRole** to open it in the IAM console.
 1. Under **Permissions policies**, choose the **X** next to the **SNSFullAccess**, **IAMFullAccess**, and **CloudWatchFullAccess** policies to detach them. Confirm detachment in the pop-up message. Do **not** detach the **WorkerCloudFormationRolePolicy** policy.
 
-    ![Detach policies](images/permissions-detach.png)
+    ![Detach policies](../images/permissions-detach.png)
 1. Go back to the **Applications** page in the [Lambda Console][lambda-console].
 1. Select the radio button next to your application.
 1. Choose **Actions** and then **Delete**.
@@ -51,7 +51,7 @@ Remove the AWS Chatbot that you configured today and delete the role created wit
 1. Click the name of the Slack channel you configured for notifications. A **Slack channel details** page will open.
 1. Under **IAM role**, click the role name.
 
-    ![Channel details](images/chatbot-channel-details.png)
+    ![Channel details](../images/chatbot-channel-details.png)
 
 1. [IAM Console][iam-console] will open in a new tab. Choose **Delete role** and confirm.
 1. Return to the [AWS Chatbot console][chatbot-console] and go back to the **Slack workspace** page.
