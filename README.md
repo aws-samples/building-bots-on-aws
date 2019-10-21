@@ -50,7 +50,7 @@ After you have completed the workshop you can delete all of the resources that w
 [api-slack]: https://api.slack.com
 
 [setup]: 00_Setup/
-[cleanup]: 01_CleanUp/
+[cleanup]: 01_Cleanup/
 [serverless-app-setup]: 1_ServerlessAppSetup/
 [code-management]: 2_CodeManagement/
 [setup-chatbot]: 3_ChatBot/

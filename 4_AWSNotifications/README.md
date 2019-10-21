@@ -103,7 +103,7 @@ In the Lambda console, create a test event that will guarantee the function to f
 [api-slack]: https://api.slack.com
 
 [setup]: ../00_Setup/
-[cleanup]: ../01_CleanUp/
+[cleanup]: ../01_Cleanup/
 [serverless-app-setup]: ../1_ServerlessAppSetup/
 [code-management]: ../2_CodeManagement/
 [setup-chatbot]: ../3_ChatBot/
