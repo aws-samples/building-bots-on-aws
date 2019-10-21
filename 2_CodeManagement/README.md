@@ -61,7 +61,7 @@ Clone the AWS CodeCommit repository, add a remote branch with the slack bot code
 1. **CodePipeline** console will open in a new tab.
 1. Choose **AWS CodeCommit** under the **Source** stage.
 
-    ![Pipeline](images/code-pipeline.png)
+    ![Pipeline](../images/code-pipeline.png)
 
 1. The code repository managed by AWS CodeCommit will open in the same tab.
 1. Choose **Clone URL** and select **Clone HTTPS** in the dropdown.
@@ -88,7 +88,7 @@ Clone the AWS CodeCommit repository, add a remote branch with the slack bot code
 1. Go back to application tab in the AWS Console and choose **ProjectPipeline**.
 1. **CodePipeline** console will open a new tab. Watch the code go through the pipeline until all three stages (Source, Build, Deploy) succeed. This will take about 5-7 minutes.
 
-    ![Pipeline succeeded](images/code-pipeline-success.png)
+    ![Pipeline succeeded](../images/code-pipeline-success.png)
 
 ### :star: Recap
 

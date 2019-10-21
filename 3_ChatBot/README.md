@@ -14,40 +14,40 @@ Create a Slack application and set up the necessary permissions and bot user. Co
 1. Choose **Create New App**.
 1. Give your app a name and choose the development workspace that will own the app. Choose **Create App**.
     
-    ![Create app modal](images/slack-create-app-dialog.png)
+    ![Create app modal](../images/slack-create-app-dialog.png)
 
 1. In the **Basic Information** screen, choose **Permissions**.
 1. Scroll down to **Scopes**, choose **chat:write:bot** scope, and choose **Save Changes**.
     
-    ![Scopes](images/slack-scopes.png)
+    ![Scopes](../images/slack-scopes.png)
 
 1. In the left menu, choose **Bot Users** and choose **Add a Bot User** in the screen that opens.
 1. Give your bot a **Display name**, a **Default username**, and choose **Always Show My Bot as Online**. Choose **Add Bot User**.
 1. In the left menu, choose **Basic Information** and scroll to the **App Credential** section.
 1. In the **Singing Secret** textbox, choose **Show** and copy the secret value.
 
-   ![Signing secret image](images/slack-signing-secret.png)
+   ![Signing secret image](../images/slack-signing-secret.png)
 
 1. Go back to AWS Console, choose **Services** in the navigation, and choose **Secrets Manager** in the list of services.
 1. Find the secret named as **APP_NAME-Secret** and choose it.
 
-    ![Secrets manager](images/secrets-manager-console.png)
+    ![Secrets manager](../images/secrets-manager-console.png)
 
 1. Scroll down to the **Secret value** section and choose **Retrieve secret value**.
 1. Choose **Edit**.
 1. Paste the **Signing secret** you copied in Slack to the textbox next to **Signing_Secret** key. Don't save it yet and keep the tab open.
 
-    ![Edit secret](images/secrets-manager-edit-secret-value.png)
+    ![Edit secret](../images/secrets-manager-edit-secret-value.png)
 
 1. Go back to the Slack app configuration page.
 1. In the left menu, choose **Install App** and choose **Install App to Workspace**.
 1. Choose **Allow** in the following screen.
     
-    ![OAuth](images/slack-oauth.png)
+    ![OAuth](../images/slack-oauth.png)
 
 1. Copy the **Bot User OAuth Access Token**.
 
-    ![Bot access token](images/slack-bot-token.png)
+    ![Bot access token](../images/slack-bot-token.png)
 
 1. Go back to the **Secrets Manager** tab.
 1. Paste the token you just copied to the textbox next to **Bot_Token** key. Choose **Save**.
@@ -56,26 +56,26 @@ Create a Slack application and set up the necessary permissions and bot user. Co
 1. Under the **Resources** section, choose **SlackLambdaFunction**.
 1. **Lambda** console will open. Choose **API Gateway** under the **Designer** section.
     
-    ![Lambda API Gateway](images/lambda-designer.png)
+    ![Lambda API Gateway](../images/lambda-designer.png)
 
 1. Scroll down until you see the **API Gateway** section and copy the **API endpoint** URL.
 
-    ![Lambda API Gateway endpoint](images/lambda-apigateway-endpoint.png)
+    ![Lambda API Gateway endpoint](../images/lambda-apigateway-endpoint.png)
 
 1. Go back to the Slack app configuration page.
 1. In the left menu, choose **Event Subscriptions** and turn **Enable Events** on.
 1. Paste the API Gateway endpoint you copied in the Lambda console in step 4 to the **Request URL** textbox and press Enter. You should see a **Verified** label.
 
-    ![Endpoint verified](images/slack-verified.png)
+    ![Endpoint verified](../images/slack-verified.png)
 
 1. In **Subscribe to Bot Events** section, choose **Add Bot User Event** and select **app_mention** and **message.im**.
 
-    ![Bot events](images/slack-bot-events.png)
+    ![Bot events](../images/slack-bot-events.png)
 
 1. Choose **Save Changes**.    
 1. A warning message will appear at the top, requesting the app to be re-installed. Choose **reinstall your app**.
 
-    ![Reinstall app](images/slack-reinstall.png)
+    ![Reinstall app](../images/slack-reinstall.png)
 
 1. Choose **Allow** in the app installation screen that opens.
 
@@ -85,11 +85,11 @@ Create a Slack application and set up the necessary permissions and bot user. Co
 
 1. Go to the Slack app and find the bot user you've just added. Send it a message. The bot should echo the message back.
 
-    ![Test IM](images/slack-test.png)
+    ![Test IM](../images/slack-test.png)
 
 1. Add the bot to a channel and send it an @-message. The bot should respond.
 
-    ![Test Channel](images/slack-test-channel.png)
+    ![Test Channel](../images/slack-test-channel.png)
 
 ### :star: Recap
 

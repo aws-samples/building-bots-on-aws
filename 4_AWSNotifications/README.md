@@ -6,7 +6,7 @@ AWS Chatbot enables your team to receive AWS notifications in Slack. To enable n
 
 Your application already includes a CloudWatch Alarm preconfigured to send a notification to an SNS topic when a Lambda function invocation fails.
 
-![Chatbot diagram](images/chatbot-diagram.png)
+![Chatbot diagram](../images/chatbot-diagram.png)
 
 #### High-level instructions
 
@@ -17,20 +17,20 @@ Configure AWS Chatbot with your Slack workspace. Use the SNS topic that was crea
 1. Go to AWS Console, choose **Services** in the navigation, and choose **AWS Chatbot** in the list of services.
 1. In **Configure a chat client**, choose **Slack**, and choose **Configure client**.
 
-    ![Chatbot home](images/chatbot-home.png)
+    ![Chatbot home](../images/chatbot-home.png)
 
 1. In the next screen, choose **Allow**.
 
-    ![Chatbot Slack OAuth](images/chatbot-slack-oauth.png)
+    ![Chatbot Slack OAuth](../images/chatbot-slack-oauth.png)
 
 1. In the **Configure Slack channel** screen, choose the Slack channel where you want to receive notifications. We recommend creating a new public channel for monitoring the Slack app.
 1. Under **IAM permissions**, leave the default settings and give a name to the role.
 
-    ![Chatbot role](images/chatbot-configure-channel-role.png)
+    ![Chatbot role](../images/chatbot-configure-channel-role.png)
 
 1. Under **SNS topics**, select the region where you created the application (**US East - Ohio**) and choose the SNS topic named **APP_NAME-OpsNotificationsTopic-RANDOM_STRING**. Choose **Configure**.
 
-    ![Chatbot topics](images/chatbot-configure-channel-topics.png)
+    ![Chatbot topics](../images/chatbot-configure-channel-topics.png)
 
 ---
 
@@ -63,11 +63,11 @@ In the Lambda console, create a test event that will guarantee the function to f
 1. Choose **Test** button again.
 1. The Lambda function will fail and display a failure message.
 
-    ![Failed Lambda](images/lambda-failed.png)
+    ![Failed Lambda](../images/lambda-failed.png)
 
 1. Within a couple of minutes, you will receive a CloudWatch Alarm notification in the Slack channel where you configured AWS Chatbot.
 
-    ![CloudWatch Alarm](images/slack-cloudwatch-alarm.png)
+    ![CloudWatch Alarm](../images/slack-cloudwatch-alarm.png)
 
 ### :star: Recap
 
