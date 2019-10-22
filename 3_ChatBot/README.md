@@ -63,11 +63,11 @@ Create a Slack application and set up the necessary permissions and bot user. Co
 1. Under the **Resources** section, choose **SlackLambdaFunction**.
 1. **Lambda** console will open. Choose **API Gateway** under the **Designer** section.
     
-    ![Lambda API Gateway](images/lambda-designer.png)
+    ![Lambda API Gateway](../images/lambda-designer.png)
 
 1. Scroll down until you see the **API Gateway** section and copy the **API endpoint** URL.
 
-    ![Lambda API Gateway endpoint](images/lambda-apigateway-endpoint.png)
+    ![Lambda API Gateway endpoint](../images/lambda-apigateway-endpoint.png)
 
 1. Go back to the Slack app configuration page.
 1. In the left menu, choose **Event Subscriptions** and turn **Enable Events** on.
