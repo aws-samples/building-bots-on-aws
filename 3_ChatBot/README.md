@@ -14,7 +14,8 @@ Create a Slack application and set up the necessary permissions and bot user. Co
 
 **:white_check_mark: Step-by-step directions**
 
-1. Go to [api.slack.com][api-slack] and choose **Your apps** in the top right corner.
+1. Go to [api.slack.com][api-slack] and log in if asked to.
+1. Choose **Your apps** in the top right corner.
 1. Choose **Create New App**.
 1. Give your app a name and choose the development workspace that will own the app. Choose **Create App**.
     
@@ -24,7 +25,6 @@ Create a Slack application and set up the necessary permissions and bot user. Co
 1. Scroll down to **Scopes**
     1. Select **Add an OAuth Scope**
     1. Choose the **chat:write:bot** scope
-    1. Choose **Save Changes** (if presented)
     
     ![Scopes](../images/slack-scopes.png)
 
@@ -59,7 +59,15 @@ Create a Slack application and set up the necessary permissions and bot user. Co
 1. Go back to the [AWS Secrets Manager console][secrets-manager-console] and find your secret again.
 1. Paste the token you just copied to the textbox next to **Bot_Token** key. Choose **Save**.
 1. Go back to the [Lambda applications console][lambda-apps] and find the application you created in module 1.
-1. Scroll down until you see the **API Endpoint** section and copy the **API endpoint** URL.
+1. Under the **Resources** section, choose **SlackLambdaFunction**.
+1. **Lambda** console will open. Choose **API Gateway** under the **Designer** section.
+    
+    ![Lambda API Gateway](images/lambda-designer.png)
+
+1. Scroll down until you see the **API Gateway** section and copy the **API endpoint** URL.
+
+    ![Lambda API Gateway endpoint](images/lambda-apigateway-endpoint.png)
+
 1. Go back to the Slack app configuration page.
 1. In the left menu, choose **Event Subscriptions** and turn **Enable Events** on.
 1. Paste the API Gateway endpoint you copied in the Lambda console in step 4 to the **Request URL** textbox and add "/slackevents" to the end of it and press Enter. You should see a **Verified** label.

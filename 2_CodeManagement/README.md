@@ -77,7 +77,7 @@ Clone the AWS CodeCommit repository, add a remote branch with the slack bot code
 
     ![Pipeline succeeded](../images/code-pipeline-success.png)
     
-You've just made some major changes to the application you created in the previous module. If you head to the **Overview** tab and refresh you will see that you have new AWS resources that have been created. These include an API Gateway endpoint, a SNS Topic, a CloudWatch Alarm, and a SecretsManager Secret. Explore the changes in the **Code** tab as well to see how the SAM template created these resources.
+You've just made some major changes to the application you created in the previous module. If you head to the **Overview** tab and refresh you will see that you have new AWS resources that have been created. These include an API Gateway endpoint, a SNS Topic, a CloudWatch Alarm, and a Secrets Manager Secret. Explore the changes in the **Code** tab as well to see how the SAM template created these resources.
 
 ### :star: Recap
 

@@ -26,7 +26,7 @@ In the Lambda console, create a new serverless application from scratch. Wait un
 1. On the Configure your application page:
     1. Give the application a name and description
     1. Choose **Node.JS 10.x** runtime
-    1. Select *CodeCommit** as the source control service and name your repository 
+    1. Select **CodeCommit** as the source control service and name your repository 
     1. Check the **Create roles and permissions boundary** checkbox. 
     1. Choose **Create**.
 
