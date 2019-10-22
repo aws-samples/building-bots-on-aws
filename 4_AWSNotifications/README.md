@@ -56,7 +56,7 @@ In the Lambda console, create a test event that will guarantee the function to f
     }
     ```
 
-    ![Test event fail](images/lambda-test-event-fail.png)
+    ![Test event fail](../images/lambda-test-event-fail.png)
 1. Choose **Create**.
 1. Choose **Test** button again.
 1. The Lambda function will fail and display a failure message.
@@ -100,6 +100,7 @@ In the Lambda console, create a test event that will guarantee the function to f
 [chatbot-console]: https://console.aws.amazon.com/chatbot/home
 [api-slack]: https://api.slack.com
 [chat-docs]: https://docs.aws.amazon.com/chatbot/latest/adminguide/related-services.html#related-services.title
+[lambda-apps]: https://us-east-2.console.aws.amazon.com/lambda/home?region=us-east-2#/applications
 
 [setup]: ../00_Setup/
 [cleanup]: ../01_Cleanup/
