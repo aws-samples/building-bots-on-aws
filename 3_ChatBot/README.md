@@ -25,6 +25,7 @@ Create a Slack application and set up the necessary permissions and bot user. Co
 1. Scroll down to **Scopes**
     1. Select **Add an OAuth Scope**
     1. Choose the **chat:write:bot** scope
+    1. Choose the **bot** scope
     
     ![Scopes](../images/slack-scopes.png)
 
