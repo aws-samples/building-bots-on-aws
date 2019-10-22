@@ -63,7 +63,7 @@ Create a Slack application and set up the necessary permissions and bot user. Co
 1. Scroll down until you see the **API Endpoint** section and copy the **Endpoint** URL.
 1. Go back to the Slack app configuration page.
 1. In the left menu, choose **Event Subscriptions** and turn **Enable Events** on.
-1. Paste the API Gateway endpoint you copied in the Lambda console in step 4 to the **Request URL** textbox and add "/slackevents" to the end of it and press Tab. You should see a **Verified** label.
+1. Paste the API Gateway endpoint you copied in the Lambda console to the **Request URL** textbox and add "/slackevents" to the end of it and press Tab. You should see a **Verified** label.
 
     ![Endpoint verified](../images/slack-verified.png)
 
