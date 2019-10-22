@@ -4,7 +4,7 @@ In this workshop, you'll create and deploy a simple Slack application (bot) that
 
 The application architecture uses [AWS Lambda][lambda], [Amazon API Gateway][api-gw], [AWS Secrets Manager][secrets-manager], [Amazon Simple Notifications Service (SNS)][sns], [Amazon CloudWatch][cloudwatch], and [AWS Chatbot][chatbot]. The Lambda function runs the back-end code that processes events from Slack that it receives via the API Gateway endpoint. Secrets Manager stores the Slack secret that the Lambda function uses to post messages to Slack. Monitoring is done via alarms in CloudWatch that sends state changes to an SNS topic that in turn triggers a notification in Slack through AWS Chatbot.
 
-The infrastructure is orchestrated by a CI/CD pipeline that uses [AWS Serverless Application Model][aws-sam], [AWS CodePipeline][codepipeline], [AWS CodeCommit][codecommit], [AWS CodeBuild][codebuild], and [AWS CloudFormation][cloudformation].
+The infrastructure is orchestrated by a CI/CD pipeline that uses [AWS Serverless Application Model][aws-sam], [AWS CodePipeline][codepipeline], [AWS CodeCommit][codecommit], [AWS CodeBuild][codebuild], and [AWS CloudFormation][cloudformation]. CloudFormation deployment notifications are published to Slack using the SNS topic and AWS Chatbot.
 
 See the diagram below for a depiction of the complete architecture.
 
@@ -18,11 +18,13 @@ This workshop is divided into four modules. Each module describes a scenario of 
 | Module | Description |
 | ---------------- | -------------------------------------------------------- |
 | [Serverless App Setup][serverless-app-setup] | Create a new Serverless Application which will support your application and provide CI/CD for it. |
-| [Code Management][code-management] | Set up an IAM user for and then clone locally the CodeCommit repository. |
+| [Code Management][code-management] | Set up an IAM user for and then clone locally the CodeCommit repository. Commit the new application code and SAM template. |
 | [Slack bot setup][setup-chatbot] | Create a Slack app to connect with AWS. |
 | [AWS Notifications][notifications] | Connect your chat bot back to AWS to recieve notification of events. |
 
 :warning: These modules are intended to be executed linearly.
+
+:star: Before starting, please review the [Setup notes][setup].
 
 After you have completed the workshop you can delete all of the resources that were created by following the [cleanup guide][cleanup].
 
