@@ -72,7 +72,7 @@ Clone the AWS CodeCommit repository, add a remote branch with the slack bot code
     git merge gh-origin/master --strategy-option theirs --allow-unrelated-histories -m "Merge from github"
     git push origin master
     ```
-1. Click on the **Deployments** tab in the Lambda application console. You should notice that your Application Pipeline's status will change to "InProgress"
+1. Click on the **Deployments** tab in the Lambda application console. You should notice that your Application Pipeline's **Status** will change to "InProgress"
 1. Select **View In CodePipeline** to watch the code go through the pipeline until all three stages (Source, Build, Deploy) succeed. This will take just a few minutes.
 
     ![Pipeline succeeded](../images/code-pipeline-success.png)
@@ -85,8 +85,7 @@ You've just made some major changes to the application you created in the previo
 
 ### Next
 
-:white_check_mark: Proceed to the next module, [Chatbot Setup][setup-chatbot], 
-wherein you'll configure an AWS Chatbot bot to connect to Slack.
+:white_check_mark: Proceed to the next module, [Slack bot setup][setup-chatbot], wherein you'll configure a Slack application to connect to this backend.
 
 ---
 [cognito]: https://aws.amazon.com/cognito/
