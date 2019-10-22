@@ -5,7 +5,7 @@ In this step, you will create an IAM User to interface with the [CodeCommit][cod
 ## Implementation Instructions
 
 :heavy_exclamation_mark: Ensure you've completed the [Serverless App Setup][serverless-app-setup] before beginning
-the workshop.
+this module.
 
 Each of the following sections provides an implementation overview and detailed, step-by-step instructions. The overview should provide enough context for you to complete the implementation if you're already familiar with the AWS Management Console or you want to explore the services yourself without following a walkthrough.
 
