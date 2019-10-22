@@ -14,7 +14,7 @@ Create an IAM user with CodeCommitFullAccess permissions, generate Git credentia
 
 **:white_check_mark: Step-by-step directions**
 
-1. In the **IAM** console, choose **Users** in the left sidebar.
+1. In the [IAM Console][iam-console], choose **Users** in the left sidebar.
 1. Choose **Add user**.
 1. Give the user a name, e.g. **CodeCommitUser** and choose **Programmatic access**.
 
@@ -43,29 +43,16 @@ Create an IAM user with CodeCommitFullAccess permissions, generate Git credentia
 1. You can close the **IAM** tab now.
 
 ---
+In the first module, you created a simple "hello world" application from a template. In this step, you will update the Serverless Application Model (SAM) template and the Slack bot code to the repository. This will create additional AWS resources and deploy the Slack bot code to the Lambda function.
 
 ### 2. Set up a local CodeCommit repository and update the app code
-
-#### Background
-
-In step 1, you created a simple "hello world" application from a template. In this step, you will add the new Serverless Application Model (SAM) template and the slack bot code to the repository. This will create additional AWS resources and deploy the Slack bot code to a Lambda function.
-
-#### High-level instructions
-
 Clone the AWS CodeCommit repository, add a remote branch with the slack bot code, and push the slack bot code to CodeCommit. Verify that the code successfully goes through the pipeline and deploys.
 
-#### Step-by-step directions
+**:white_check_mark: Step-by-step directions**
 
-1. Go back to the tab with the application you created in step 1.
-1. Under the **Infrastructure** section, choose **ProjectPipeline**.
-1. **CodePipeline** console will open in a new tab.
-1. Choose **AWS CodeCommit** under the **Source** stage.
-
-    ![Pipeline](../images/code-pipeline.png)
-
-1. The code repository managed by AWS CodeCommit will open in the same tab.
-1. Choose **Clone URL** and select **Clone HTTPS** in the dropdown.
-1. You can see the clone URL in the success message at the top of the page. The URL has been automatically copied to the clipboard.
+1. Go back to the [Lambda applications console][lambda-apps] and find the application you created in module 1.
+1. Select the **Code** tab from the top.
+1. Under **Repository details** and click on the square box next to HTTP under **Clone URL**. The URL has been automatically copied to the clipboard.
 1. Open the terminal app on your computer and go to the directory where you want to store the code.
 1. Type the following command 
     ```
@@ -85,10 +72,12 @@ Clone the AWS CodeCommit repository, add a remote branch with the slack bot code
     git merge gh-origin/master --strategy-option theirs --allow-unrelated-histories -m "Merge from github"
     git push origin master
     ```
-1. Go back to application tab in the AWS Console and choose **ProjectPipeline**.
-1. **CodePipeline** console will open a new tab. Watch the code go through the pipeline until all three stages (Source, Build, Deploy) succeed. This will take about 5-7 minutes.
+1. Click on the **Deployments** tab in the Lambda application console. You should notice that your Application Pipeline's status will change to "InProgress"
+1. Select **View In CodePipeline** to watch the code go through the pipeline until all three stages (Source, Build, Deploy) succeed. This will take just a few minutes.
 
     ![Pipeline succeeded](../images/code-pipeline-success.png)
+    
+You've just made some major changes to the application you created in the previous module. If you head to the **Overview** tab and refresh you will see that you have new AWS resources that have been created. These include an API Gateway endpoint, a SNS Topic, a CloudWatch Alarm, and a SecretsManager Secret. Explore the changes in the **Code** tab as well to see how the SAM template created these resources.
 
 ### :star: Recap
 
@@ -121,6 +110,7 @@ wherein you'll configure an AWS Chatbot bot to connect to Slack.
 [s3-console]: https://console.aws.amazon.com/s3/home
 [chatbot-console]: https://console.aws.amazon.com/chatbot/home
 [api-slack]: https://api.slack.com
+[lambda-apps]: https://us-east-2.console.aws.amazon.com/lambda/home?region=us-east-2#/applications
 
 [setup]: ../00_Setup/
 [cleanup]: ../01_Cleanup/

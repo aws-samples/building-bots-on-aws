@@ -1,6 +1,6 @@
 # Module 1: Create a serverless application
 
-In this step, you will create a Serverless Application that uses Amazon API Gateway and AWS Lambda to receive and process events. The infrastructure will be orchestrated by an automatically created CI/CD pipeline. You will then extend the default IAM role created so that you can work with additional services later on.
+In this step, you will create a Serverless Application that uses AWS Lambda to receive and process events. The infrastructure will be orchestrated by an automatically created CI/CD pipeline. You will then extend the default IAM role created so that you can work with additional services later on.
 
 ## Implementation Instructions
 
@@ -23,11 +23,18 @@ In the Lambda console, create a new serverless application from scratch. Wait un
 1. In the Lambda console, choose **Applications** in the sidebar on the left.
 1. Choose **Create application**.
 1. Choose **Author from scratch** at the bottom of the page.
-1. Give the application a name and description, choose **Node.JS 10.x** runtime and **CodeCommit** as the source control service. Give the repository a name. Check the **Create roles and permissions boundary** checkbox. Choose **Create**.
+1. On the Configure your application page:
+    1. Give the application a name and description
+    1. Choose **Node.JS 10.x** runtime
+    1. Select *CodeCommit** as the source control service and name your repository 
+    1. Check the **Create roles and permissions boundary** checkbox. 
+    1. Choose **Create**.
 
     ![Create application](../images/console-create-application-step-2.png)
 
 1. Wait for the creation process to finish. This will take approximately 5 minutes and you will see a success message when it's complete.
+
+You now have a running serverless application built on AWS Lambda. Explore the Overview, Code, Deployments, and Monitoring tabs to see more about this base application and the infrastructure that is powering it. 
 
 ---
 
@@ -38,13 +45,13 @@ Open the CloudFormationRole IAM role in IAM console and add SNSFullAccess, IAMFu
 
 **:white_check_mark: Step-by-step directions**
 
-1. In the Application page, choose **CloudFormationRole** under the **Infrastructure** section. [IAM Console][iam-console] will open in a new tab.
-1. Choose **Attach policies**.
-1. Search for **SNSFullAccess** and select it (but do not attach it yet). Repeat for **IAMFullAccess** and **CloudWatchFullAccess**.
+1. In the Application page, choose **CloudFormationRole** under the **Infrastructure** section. The [IAM Console][iam-console] will open in a new tab.
+1. Under the **Permissions** tab choose **Attach policies**.
+1. Search for **SNSFullAccess** and check the checkbox next to it (but do not attach it yet). Repeat for **IAMFullAccess** and **CloudWatchFullAccess**.
     
     ![SNSFullAccess](../images/permissions-iam-snsfullaccess.png)
 
-1. Choose **Attach policy** to attach the three selected policies to the role.
+1. Choose **Attach policy** to attach the three selected policies to the role. You should now see 4 policies attached.
 
 ### :star: Recap
 
