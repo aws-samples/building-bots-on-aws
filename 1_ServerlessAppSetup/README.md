@@ -4,9 +4,6 @@ In this step, you will create a Serverless Application that uses AWS Lambda to r
 
 ## Implementation Instructions
 
-:heavy_exclamation_mark: Ensure you've completed the [setup guide][setup] before beginning
-the workshop.
-
 Each of the following sections provides an implementation overview and detailed, step-by-step instructions. The overview should provide enough context for you to complete the implementation if you're already familiar with the AWS Management Console or you want to explore the services yourself without following a walkthrough.
 
 ### 1. Create the AWS Lambda based serverless application
