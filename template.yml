@@ -34,7 +34,7 @@ Resources:
     Properties:
       CodeUri: ./src/handlers/slack-bot.js
       Handler: slack-bot.handler
-      Runtime: nodejs10.x
+      Runtime: nodejs14.x
       MemorySize: 128
       Timeout: 60
       Description: A Lambda function that echoes back messages back to Slack.
